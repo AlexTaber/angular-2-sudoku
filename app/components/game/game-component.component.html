@@ -1,9 +1,20 @@
-<div class="game">  
+<div class="game"
+>  
   <tile-component 
-    *ngFor="let tile of game.tiles"
+    *ngFor="let tile of game.tiles; let i = index"
     [tile] = "tile"
     [selected] = "isSelected(tile)"
+    [index] = "i"
+    [gameService] = "gameService"
     [class.selected]="isSelected(tile)"
-    (click)="onSelect(tile)">
+    (click)="onSelect(tile)"
+    (onGameUpdate)="updateGame($event)">
   </tile-component>
+</div>
+
+<div>
+  <button class="solve"
+    (click)="solve()">
+    SOLVE
+  </button>
 </div>

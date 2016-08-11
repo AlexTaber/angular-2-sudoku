@@ -20,6 +20,10 @@ export class GameComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.updateGame();
+  }
+
+  updateGame(): void {
     this.game = this.gameService.getGame();
   }
 
@@ -29,5 +33,15 @@ export class GameComponent implements OnInit {
 
   onSelect(tile: Tile): void {
     this.selectedTile = tile;
+  }
+
+  checkKey(e: any): void {
+    debugger;
+    if(e.key == "Enter") this.solve();
+  }
+
+  solve(): void {
+    this.gameService.solve(this.game);
+    this.updateGame();
   }
 }

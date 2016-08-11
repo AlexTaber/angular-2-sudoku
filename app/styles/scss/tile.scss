@@ -1,8 +1,19 @@
 tile-component {
   display: inline-block;
-  width: 11%;
+  width: 33px;
+  height: 33px;
   h1 {  
     color: green;
     margin: 0;
+  }
+
+  form {
+    position: absolute;
+    margin: 0;
+  }
+
+  input {
+    width: 15px;
+    margin-top: 16px;
   }
 }
