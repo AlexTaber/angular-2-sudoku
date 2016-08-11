@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,cAAe;EACb,OAAO,EAAE,YAAY;EACrB,KAAK,EAAE,GAAG;EACV,iBAAG;IACD,KAAK,EAAE,KAAK;IACZ,MAAM,EAAE,CAAC;;ACLb,KAAM;EACJ,KAAK,EAAE,KAAK",
+"sources": ["scss/tile.scss","scss/game.scss"],
+"names": [],
+"file": "styles.css"
+}

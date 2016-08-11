@@ -1,3 +1,9 @@
-<tile *ngFor="let tile of tiles">
-
-</tile>
+<div class="game">  
+  <tile-component 
+    *ngFor="let tile of game.tiles"
+    [tile] = "tile"
+    [selected] = "isSelected(tile)"
+    [class.selected]="isSelected(tile)"
+    (click)="onSelect(tile)">
+  </tile-component>
+</div>
