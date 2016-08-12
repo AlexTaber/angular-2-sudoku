@@ -14,7 +14,7 @@ tile-component {
 
   &.is-wrong {
     input {
-      background-color: red;
+      background-color: rgba(red, 0.5);
     } 
   }
 }

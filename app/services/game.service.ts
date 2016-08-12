@@ -5,7 +5,13 @@ import { Game, Tile } from '../models';
 @Injectable()
 export class GameService {
   gameString: string = '6-----8-3-4-7-----------------5-4-7-3--2-----1-6-------2-----5-----8-6------1----';
-  originalString: string = this.gameString;
+  solvedString: string;
+  originalString: string;
+
+  constructor() {
+    this.originalString = this.gameString;
+    this.solvedString = this.solve(this.getGame());
+  }
 
   getGame(): Game {
     let tiles: Tile[] = [];
@@ -19,8 +25,13 @@ export class GameService {
     return new Game(tiles);
   }
 
-  solve(game: Game): void {
-    this.gameString = game.solve(0, this.originalString);
+  getSolvedGame(): Game {
+    this.gameString = this.solvedString;
+    return this.getGame();
+  }
+
+  solve(game: Game): string {
+    return game.solve(0, this.originalString);
   }
 
   updateTile(tile: Tile, value: number, index: number) {
@@ -31,5 +42,13 @@ export class GameService {
     this.gameString = gameString;
     this.originalString = gameString;
     return this.getGame();
+  }
+
+  isWrong(tile: Tile, index: number): boolean {
+    if(this.originalString[index] == "-" && tile.value != 0) {
+      return this.gameString[index] != this.solvedString[index];
+    }
+
+    return false;
   }
 }

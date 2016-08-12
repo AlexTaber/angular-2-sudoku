@@ -16,14 +16,18 @@
     [index] = "i"
     [gameService] = "gameService"
     [class.selected]="isSelected(tile)"
-    [class.is-wrong]="isWrongTile(tile)"
-    (click)="onSelect(tile)"
+    [class.is-wrong]="checkShowError(tile, i)"
+    (click)="onSelect($event, tile)"
     (onGameUpdate)="updateGame($event)">
   </tile-component>
 
   <button class="solve"
     (click)="solve()">
     SOLVE
+  </button>
+
+  <button (click)="toggleShowErrors()">
+    {{showErrorsText()}}
   </button>
 
   <div class="import">

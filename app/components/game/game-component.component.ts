@@ -13,8 +13,8 @@ import { TileComponent } from '../tile/tile-component.component';
 
 export class GameComponent implements OnInit {
   game: Game;
-  wrongTiles: Tile[] = [];
   selectedTile: Tile;
+  showErrors: boolean = false;
 
   constructor(
     private gameService: GameService
@@ -32,37 +32,36 @@ export class GameComponent implements OnInit {
     return tile === this.selectedTile;
   }
 
-  onSelect(tile: Tile): void {
+  onSelect(e: any, tile: Tile): void {
+    e.target.select();
     this.selectedTile = tile;
   }
 
   solve(): void {
-    let oldGame: Game = this.game;
-    this.gameService.solve(this.game);
-    this.updateGame();
-    this.findWrongTiles(oldGame, this.game);
+    let oldGame = this.game;
+    this.game = this.gameService.getSolvedGame();
   }
 
-  findWrongTiles(oldGame: Game, newGame: Game): void {
-    this.wrongTiles = [];
-    let oldTile: Tile, newTile: Tile;
-    
-    for(let i = 0; i < newGame.tiles.length; i++) {
-      oldTile = oldGame.tiles[i];
-      if(oldTile.value != 0) {
-        newTile = newGame.tiles[i];
-        if(oldTile.value != newTile.value) { this.wrongTiles.push(newTile)}
-      }
-    }
-  }
-
-  isWrongTile(tile: Tile): boolean {
-    return this.wrongTiles.includes(tile);
+  isWrongTile(tile: Tile, index: number): boolean {
+    return this.gameService.isWrong(tile, index);
   }
 
   importForm(e: any): void {
     let gameString: string = e.target.gameString.value;
     this.game = this.gameService.importGame(gameString);
     e.preventDefault();
+  }
+
+  checkShowError(tile: Tile, i: number): boolean {
+    return this.showErrors && this.isWrongTile(tile, i);
+  }
+
+  toggleShowErrors(): void {
+    this.showErrors = !this.showErrors;
+  }
+
+  showErrorsText(): string {
+    let str = (this.showErrors) ? "Hide Errors" : "ShowErrors";
+    return str;
   }
 }

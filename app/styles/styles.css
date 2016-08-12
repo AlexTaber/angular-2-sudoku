@@ -8,7 +8,7 @@ tile-component {
     width: 15px;
     border: none; }
   tile-component.is-wrong input {
-    background-color: red; }
+    background-color: rgba(255, 0, 0, 0.5); }
 
 .game {
   width: 300px;
