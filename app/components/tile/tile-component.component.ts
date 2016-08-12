@@ -28,4 +28,8 @@ export class TileComponent {
     this.onGameUpdate.emit();
     e.preventDefault();
   }
+
+  formatedValue(): string {
+    return (this.tile.value == 0) ? '-' : String(this.tile.value);
+  }
 }

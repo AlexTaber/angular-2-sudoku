@@ -6,14 +6,10 @@ export class Game {
   }
 
   solve(tileIndex: number, curString: string): string {
-    console.log(curString);
-    
     if (!curString.includes('-')) { return curString } //base case
 
     while(curString[tileIndex] != "-") { tileIndex += 1; } //find next empty cell
     let potentialAnswers: number[] = this.getPotentialAnswers(tileIndex, curString);
-
-    console.log(potentialAnswers);
 
     if(potentialAnswers.length == 1) { curString = this.replaceAtIndex(curString, String(potentialAnswers[0]), tileIndex); }
     else if(potentialAnswers.length == 0) { return undefined }
