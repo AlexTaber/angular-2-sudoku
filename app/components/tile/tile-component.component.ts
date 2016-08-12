@@ -23,13 +23,17 @@ export class TileComponent {
   }
 
   updateTile(e: any, tile: Tile): void {
-    let value = parseInt(e.target.value.value);
-    this.gameService.updateTile(tile, value, this.index);
-    this.onGameUpdate.emit();
-    e.preventDefault();
+    let value = parseInt(e.target.value);
+    if(value && value < 10) {
+      this.gameService.updateTile(tile, value, this.index);
+      this.onGameUpdate.emit();
+      e.preventDefault();
+    } else {
+      e.target.value = '';
+    }
   }
 
   formatedValue(): string {
-    return (this.tile.value == 0) ? '-' : String(this.tile.value);
+    return (this.tile.value == 0) ? '' : String(this.tile.value);
   }
 }

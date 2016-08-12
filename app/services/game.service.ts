@@ -4,7 +4,7 @@ import { Game, Tile } from '../models';
 
 @Injectable()
 export class GameService {
-  gameString: string = '4-----8-5-3----------7------2-----6-----8-4------1-------6-3-7-5--2-----1-4------';
+  gameString: string = '6-----8-3-4-7-----------------5-4-7-3--2-----1-6-------2-----5-----8-6------1----';
   originalString: string = this.gameString;
 
   getGame(): Game {
@@ -25,5 +25,11 @@ export class GameService {
 
   updateTile(tile: Tile, value: number, index: number) {
     this.gameString = this.gameString.substr(0, index) + String(value) + this.gameString.substr(index + 1);
+  }
+
+  importGame(gameString: string): Game {
+    this.gameString = gameString;
+    this.originalString = gameString;
+    return this.getGame();
   }
 }

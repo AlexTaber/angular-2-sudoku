@@ -1,14 +1,10 @@
 <div>
-  <h1 *ngIf="selected">
-    <form (submit)="updateTile($event, tile)">
-       <input type="text"
-        name="value"
-        placeholder="-"
-      >
-    </form>
-  </h1>
-
-  <h2 *ngIf="!selected">
-    {{formatedValue()}}
-  </h2>
+  <form>
+      <input type="text"
+      name="value"
+      placeholder="-"
+      value="{{formatedValue()}}"
+      (keyup)="updateTile($event, tile)"
+    >
+  </form>
 </div>

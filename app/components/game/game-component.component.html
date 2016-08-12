@@ -1,5 +1,14 @@
-<div class="game"
->  
+<div class="game">
+  <div class="v-lines">
+    <div class="v-line"></div>  
+    <div class="v-line"></div>
+  </div>  
+
+  <div class="h-lines">
+    <div class="h-line"></div>  
+    <div class="h-line"></div>
+  </div>  
+
   <tile-component 
     *ngFor="let tile of game.tiles; let i = index"
     [tile] = "tile"
@@ -7,14 +16,19 @@
     [index] = "i"
     [gameService] = "gameService"
     [class.selected]="isSelected(tile)"
+    [class.is-wrong]="isWrongTile(tile)"
     (click)="onSelect(tile)"
     (onGameUpdate)="updateGame($event)">
   </tile-component>
-</div>
 
-<div>
   <button class="solve"
     (click)="solve()">
     SOLVE
   </button>
+
+  <div class="import">
+    <form (submit)="importForm($event)">
+      <input name="gameString" type="text" placeholder="Import game from string (e.g. '---5--3-2---'...)">
+    </form>
+  </div>
 </div>

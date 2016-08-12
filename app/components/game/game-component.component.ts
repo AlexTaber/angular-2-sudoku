@@ -13,6 +13,7 @@ import { TileComponent } from '../tile/tile-component.component';
 
 export class GameComponent implements OnInit {
   game: Game;
+  wrongTiles: Tile[] = [];
   selectedTile: Tile;
 
   constructor(
@@ -35,13 +36,33 @@ export class GameComponent implements OnInit {
     this.selectedTile = tile;
   }
 
-  checkKey(e: any): void {
-    debugger;
-    if(e.key == "Enter") this.solve();
-  }
-
   solve(): void {
+    let oldGame: Game = this.game;
     this.gameService.solve(this.game);
     this.updateGame();
+    this.findWrongTiles(oldGame, this.game);
+  }
+
+  findWrongTiles(oldGame: Game, newGame: Game): void {
+    this.wrongTiles = [];
+    let oldTile: Tile, newTile: Tile;
+    
+    for(let i = 0; i < newGame.tiles.length; i++) {
+      oldTile = oldGame.tiles[i];
+      if(oldTile.value != 0) {
+        newTile = newGame.tiles[i];
+        if(oldTile.value != newTile.value) { this.wrongTiles.push(newTile)}
+      }
+    }
+  }
+
+  isWrongTile(tile: Tile): boolean {
+    return this.wrongTiles.includes(tile);
+  }
+
+  importForm(e: any): void {
+    let gameString: string = e.target.gameString.value;
+    this.game = this.gameService.importGame(gameString);
+    e.preventDefault();
   }
 }

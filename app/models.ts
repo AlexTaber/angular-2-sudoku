@@ -19,14 +19,10 @@ export class Game {
   }
 
 
-  getPotentialAnswers(tileIndex: number, curString: string) {
+  private getPotentialAnswers(tileIndex: number, curString: string) {
     let possibleAnswers: number[] = [1,2,3,4,5,6,7,8,9];
-    let takenNumbers: number[] = [];
+    let takenNumbers: number[] = this.findTakenNumbers(tileIndex, curString);
     let returnedAnswers: number[] = [];
-
-    takenNumbers = this.testRow(takenNumbers, tileIndex, curString);
-    takenNumbers = this.testColumn(takenNumbers, tileIndex, curString);
-    takenNumbers = this.testBox(takenNumbers, tileIndex, curString);
 
     for(let i = 0; i < possibleAnswers.length; i++) {
       if(!takenNumbers.includes(possibleAnswers[i])) {
@@ -37,7 +33,16 @@ export class Game {
     return returnedAnswers;
   }
 
-  guess(tileIndex: number, potentialAnswers: number[], curString: string): string {
+  private findTakenNumbers(tileIndex: number, curString: string): number[] {
+    let takenNumbers: number[] = [];
+    takenNumbers = this.testRow(takenNumbers, tileIndex, curString);
+    takenNumbers = this.testColumn(takenNumbers, tileIndex, curString);
+    takenNumbers = this.testBox(takenNumbers, tileIndex, curString);
+
+    return takenNumbers;
+  }
+
+  private guess(tileIndex: number, potentialAnswers: number[], curString: string): string {
     let solution: string;
     for(let i = 0; i < potentialAnswers.length; i++) {
       curString = this.replaceAtIndex(curString, String(potentialAnswers[i]), tileIndex);
@@ -51,13 +56,13 @@ export class Game {
     }
   }
 
-  testRow(takenNumbers: number[], index: number, curString: string): number[] {
+  private testRow(takenNumbers: number[], index: number, curString: string): number[] {
     let start = Math.floor(index / 9) * 9;
     let newNumbers = curString.substring(start, start + 9).replace(new RegExp('-', 'g'), '').split('').map(Number);
     return this.flattenArrays(takenNumbers, newNumbers);
   }
 
-  testColumn(takenNumbers: number[], index: number, curString: string): number[] {
+  private testColumn(takenNumbers: number[], index: number, curString: string): number[] {
     let newNumbers: number[] = [];
     let start = index % 9;
     let addedNumber: number;
@@ -71,7 +76,7 @@ export class Game {
     return this.flattenArrays(takenNumbers, newNumbers);
   }
 
-  testBox(takenNumbers: number[], index: number, curString: string): number[] {
+  private testBox(takenNumbers: number[], index: number, curString: string): number[] {
     let newNumbers: number[] = [];
     let startColumn = Math.floor((index % 9) / 3);
     let startRow = Math.floor(Math.floor(index / 9) / 3);
@@ -88,11 +93,11 @@ export class Game {
     return this.flattenArrays(takenNumbers, newNumbers);
   }
 
-  flattenArrays(a: number[], b: number[]): number[] {
+  private flattenArrays(a: number[], b: number[]): number[] {
     return a.concat(b.filter((item) => { return a.indexOf(item) < 0 } ));
   }
 
-  replaceAtIndex(str: string, subStr: string, index: number) {
+  private replaceAtIndex(str: string, subStr: string, index: number) {
     return str.substr(0, index) + subStr + str.substr(index + 1);
   }
 }
