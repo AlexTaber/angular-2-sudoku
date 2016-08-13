@@ -16,7 +16,8 @@
     "tsc": "tsc",
     "tsc:w": "tsc -w",
     "typings": "typings",
-    "webdriver:update": "webdriver-manager update"
+    "webdriver:update": "webdriver-manager update",
+    "sass": "sass --watch app/styles/styles.scss:app/styles/styles.css"
   },
   "keywords": [],
   "author": "",
